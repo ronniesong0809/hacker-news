@@ -15,7 +15,7 @@ class Body extends Component {
     }
   }
 
-  displayStory(i){
+  getStory(i){
     // console.log(i)
     const base = "https://hacker-news.firebaseio.com/v0/item/"+i+".json"
     Axios.get(base)
@@ -60,7 +60,7 @@ class Body extends Component {
     .then(async(res) => {
       res.data.slice(0,100).forEach((element, e_index) => {
         // console.log(element)
-        this.displayStory(element)
+        this.getStory(element)
       });
       this.setState({
         isLoad: true
@@ -86,7 +86,7 @@ class Body extends Component {
             </span>}
 
             {this.state.isLoad &&
-            <ListGroup>
+            <ListGroup variant="flush">
               {this.state.items.map((item, item_key) =>
               <ListGroup.Item key={item_key}>
                 <Media>
@@ -94,8 +94,19 @@ class Body extends Component {
                     {item_key+1}
                   </span>
                   <Media.Body>
-                    <span className="title"><a  className="blackLink" href={item.url}>{item.title}</a></span> <span className="subtitle">{this.shortUrl(item.url)}</span><br/>
-                    <span className="subtitle">{item.score} points by <Badge variant="dark"><a className="whiteLink" href={this.getUserUrl(item.by)}>{item.by}</a></Badge> <time title={this.time(item.time)}>{this.fromNow(item.time)}</time></span>
+                    <span className="title">
+                      <a  className="blackLink" href={item.url} rel="noopener noreferrer" target="_blank">{item.title}</a>
+                    </span> {" "}
+                    <span className="subtitle">
+                      {this.shortUrl(item.url)}
+                    </span><br/>
+                    <span className="subtitle">
+                      {item.score} points by {" "}
+                      <Badge variant="dark">
+                        <a className="whiteLink" href={this.getUserUrl(item.by)} rel="noopener noreferrer" target="_blank">{item.by}</a>
+                      </Badge>{" "}
+                      <time title={this.time(item.time)}>{this.fromNow(item.time)}</time>
+                    </span>
                   </Media.Body>
                 </Media>
               </ListGroup.Item>
