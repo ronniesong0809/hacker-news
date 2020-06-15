@@ -1,3 +1,9 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .blackLink {
     color: black !important;
 }
