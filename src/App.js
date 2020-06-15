@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Body from './Components/Body'
 import Error from './Components/Error'
-import About from './Components/About';
-import './App.css';
+import About from './Components/About'
 
 class App extends Component {
   render() {

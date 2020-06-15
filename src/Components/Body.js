@@ -38,11 +38,16 @@ class Body extends Component {
     }
   }
 
+  time(timestamp){
+    return moment(timestamp*1000).format('MMMM Do YYYY, h:mm:ss a')
+    // return moment(timestamp*1000).startOf('hour').fromNow()
+  }
+
   componentDidMount(){
     const base = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
     Axios.get(base)
     .then(async(res) => {
-      res.data.slice(0, 20).forEach(element => {
+      res.data.slice(0, 100).forEach(element => {
         // console.log(element)
         this.displayStory(element)
       }, 2);
@@ -61,7 +66,7 @@ class Body extends Component {
           {this.state.items.map((item, item_key) =>
             <ListGroup.Item key={item_key}>
               {item_key+1}. <a href={item.url}>{item.title}</a> {this.shortUrl(item.url)}<br/>
-          {item.score} points by <a href={item.url}>{item.by}</a>}
+              {item.score} points by <a href={item.url}>{item.by}</a> {this.time(item.time)}
             </ListGroup.Item>
           )}
           </ListGroup>
