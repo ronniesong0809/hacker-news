@@ -44,7 +44,12 @@ class Body extends Component {
     return moment(timestamp*1000).format('MMMM Do YYYY, h:mm:ss a')
     // return moment(timestamp*1000).startOf('hour').fromNow()
   }
-  
+
+  fromNow(timestamp){
+    return moment(timestamp*1000).fromNow()
+    // return moment(timestamp*1000).startOf('hour').fromNow()
+  }
+
   getUserUrl(userId){
     return "https://news.ycombinator.com/user?id=" + userId
   }
@@ -85,7 +90,7 @@ class Body extends Component {
               {this.state.items.map((item, item_key) =>
               <ListGroup.Item key={item_key}>
                 <span className="title">{item_key+1}. <a  className="blackLink" href={item.url}>{item.title}</a></span> <span className="subtitle">{this.shortUrl(item.url)}</span><br/>
-                <span className="subtitle">{item.score} points by <a  className="blackLink" href={this.getUserUrl(item.by)}>{item.by}</a> {this.time(item.time)}</span>
+                <span className="subtitle">{item.score} points by <a  className="blackLink" href={this.getUserUrl(item.by)}>{item.by}</a> <time title={this.time(item.time)}>{this.fromNow(item.time)}</time></span>
               </ListGroup.Item>
               )}
             </ListGroup>}
