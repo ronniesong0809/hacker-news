@@ -5,7 +5,11 @@
 }
 
 .blackLink {
-    color: black !important;
+  color: black !important;
+}
+
+.whiteLink {
+  color: white !important;
 }
 
 .subtitle {

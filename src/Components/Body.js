@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Header from '../Components/Header'
 import Footer from '../Components/Footer'
-import {ListGroup, Container, Media, Spinner} from 'react-bootstrap'
+import {ListGroup, Container, Media, Spinner, Badge} from 'react-bootstrap'
 import Axios from 'axios'
 import moment from 'moment'
 import './stylesheet.css';
@@ -95,7 +95,7 @@ class Body extends Component {
                   </span>
                   <Media.Body>
                     <span className="title"><a  className="blackLink" href={item.url}>{item.title}</a></span> <span className="subtitle">{this.shortUrl(item.url)}</span><br/>
-                    <span className="subtitle">{item.score} points by <a  className="blackLink" href={this.getUserUrl(item.by)}>{item.by}</a> <time title={this.time(item.time)}>{this.fromNow(item.time)}</time></span>
+                    <span className="subtitle">{item.score} points by <Badge variant="dark"><a className="whiteLink" href={this.getUserUrl(item.by)}>{item.by}</a></Badge> <time title={this.time(item.time)}>{this.fromNow(item.time)}</time></span>
                   </Media.Body>
                 </Media>
               </ListGroup.Item>
