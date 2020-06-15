@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import Header from '../Components/Header'
 import Footer from '../Components/Footer'
-import {ListGroup, Container} from 'react-bootstrap'
+import {ListGroup, Container, ProgressBar} from 'react-bootstrap'
 import Axios from 'axios'
 import moment from 'moment'
+import './stylesheet.css';
 
 class Body extends Component {
   constructor(){
     super();
     this.state = {
-      items: []
+      items: [],
+      isLoad: false,
     }
   }
 
@@ -31,7 +33,7 @@ class Body extends Component {
 
   shortUrl(url){
     if(url){
-      console.log(url)
+      // console.log(url)
       var pathArray = url.split( '/' );
       var host = pathArray[2];
       return "("+host+")"
@@ -43,14 +45,26 @@ class Body extends Component {
     // return moment(timestamp*1000).startOf('hour').fromNow()
   }
 
+  getUserUrl(userId){
+    return "https://news.ycombinator.com/user?id=" + userId
+  }
+
+  getIndex(){
+    console.log(this.state.index)
+    return this.state.index/1000
+  }
+
   componentDidMount(){
     const base = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
     Axios.get(base)
     .then(async(res) => {
-      res.data.slice(0, 100).forEach(element => {
+      res.data.forEach((element, e_index) => {
         // console.log(element)
         this.displayStory(element)
-      }, 2);
+      });
+      this.setState({
+        isLoad: true
+      })
     })
     .catch(err => {
       console.log(err);
@@ -63,10 +77,10 @@ class Body extends Component {
         <Header/>
           <Container className="my-5">
           <ListGroup>
-          {this.state.items.map((item, item_key) =>
+            {this.state.items.map((item, item_key) =>
             <ListGroup.Item key={item_key}>
-              {item_key+1}. <a href={item.url}>{item.title}</a> {this.shortUrl(item.url)}<br/>
-              {item.score} points by <a href={item.url}>{item.by}</a> {this.time(item.time)}
+              <span className="title">{item_key+1}. <a  className="blackLink" href={item.url}>{item.title}</a></span> <span className="subtitle">{this.shortUrl(item.url)}</span><br/>
+              <span className="subtitle">{item.score} points by <a  className="blackLink" href={this.getUserUrl(item.by)}>{item.by}</a> {this.time(item.time)}</span>
             </ListGroup.Item>
           )}
           </ListGroup>
