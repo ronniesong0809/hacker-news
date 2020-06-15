@@ -14,7 +14,7 @@ class About extends Component {
           <Container>
             <Jumbotron className="About m-5" fluid>
               <h1>Welcome!</h1>
-              <p>This is a simple PWA webapp that allows its display the top 100 Hacker News.</p>
+              <p>This is a simple PWA that display the top 100 Hacker News.</p>
               <Button
                 variant="btn btn-lg btn-outline-dark"
                 className="m-1"
