@@ -35,19 +35,17 @@ class Body extends Component {
     if(url){
       // console.log(url)
       var pathArray = url.split( '/' );
-      var host = pathArray[2];
-      return "("+host+")"
+      var host = pathArray[2].replace('www.','')
+      return host
     }
   }
 
   time(timestamp){
     return moment(timestamp*1000).format('MMMM Do YYYY, h:mm:ss a')
-    // return moment(timestamp*1000).startOf('hour').fromNow()
   }
 
   fromNow(timestamp){
     return moment(timestamp*1000).fromNow()
-    // return moment(timestamp*1000).startOf('hour').fromNow()
   }
 
   getUserUrl(userId){
@@ -55,11 +53,10 @@ class Body extends Component {
   }
 
   getKidsUrl(kidsId){
-    if(kidsId){
+    if(kidsId)
       return kidsId.length
-    }else{
+    else
       return 0
-    }
   }
 
   getItemUrl(itemId){
@@ -109,15 +106,22 @@ class Body extends Component {
                     <span className="title">
                       <a  className="blackLink" href={item.url} rel="noopener noreferrer" target="_blank">{item.title}</a>
                     </span> {" "}
+
                     <span className="subtitle">
-                      {this.shortUrl(item.url)}
+                      <a className="subtitle" href={"https://news.ycombinator.com/from?site="+this.shortUrl(item.url)} rel="noopener noreferrer" target="_blank">
+                        ({this.shortUrl(item.url)})
+                      </a>
                     </span><br/>
+
                     <span className="subtitle">
                       {item.score} points by {" "}
+
                       <Badge variant="dark">
                         <a className="whiteLink" href={this.getUserUrl(item.by)} rel="noopener noreferrer" target="_blank">{item.by}</a>
                       </Badge>{" "}
+
                       <time title={this.time(item.time)}>{this.fromNow(item.time)}</time> |{" "}
+
                       <a className="blackLink" href={this.getItemUrl(item.id)} rel="noopener noreferrer" target="_blank">
                         {this.getKidsUrl(item.kids)} comments
                       </a>
