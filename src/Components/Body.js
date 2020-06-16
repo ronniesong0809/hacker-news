@@ -54,6 +54,18 @@ class Body extends Component {
     return "https://news.ycombinator.com/user?id=" + userId
   }
 
+  getKidsUrl(kidsId){
+    if(kidsId){
+      return kidsId.length
+    }else{
+      return 0
+    }
+  }
+
+  getItemUrl(itemId){
+    return "https://news.ycombinator.com/item?id=" + itemId
+  }
+
   componentDidMount(){
     const base = "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty"
     Axios.get(base)
@@ -105,7 +117,10 @@ class Body extends Component {
                       <Badge variant="dark">
                         <a className="whiteLink" href={this.getUserUrl(item.by)} rel="noopener noreferrer" target="_blank">{item.by}</a>
                       </Badge>{" "}
-                      <time title={this.time(item.time)}>{this.fromNow(item.time)}</time>
+                      <time title={this.time(item.time)}>{this.fromNow(item.time)}</time> |{" "}
+                      <a className="blackLink" href={this.getItemUrl(item.id)} rel="noopener noreferrer" target="_blank">
+                        {this.getKidsUrl(item.kids)} comments
+                      </a>
                     </span>
                   </Media.Body>
                 </Media>
